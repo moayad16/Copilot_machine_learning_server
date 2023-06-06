@@ -5,6 +5,7 @@ import logging
 import pandas as pd
 import numpy as np
 from app.modules.pipeline import pipeline
+from app.database import collection
 
 app = FastAPI()
 
@@ -57,4 +58,13 @@ async def postData(data:dict) -> dict:
 
     return {
         "message": "Data recieved"
+    }
+
+
+@app.post('/test', tags=['test'])
+async def testDb(data:dict) -> dict:
+    print(data)
+    collection.insert_one(data)
+    return {
+        "message": "data recieved"
     }
