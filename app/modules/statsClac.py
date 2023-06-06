@@ -36,10 +36,10 @@ def get_max_mean_crossing_interval(index, samples):
         return max(np.diff(intervals))
 
 
-def extract_features(amplitude, sample_size):
+def extract_features(df, sample_size):
     features = []
-
-    amplitude = amplitude['amplitude']
+    # print(amplitude.keys())
+    amplitude = df['amplitude']
 
     for i in range(0, len(amplitude), sample_size):
         if i == 0:
@@ -57,11 +57,13 @@ def extract_features(amplitude, sample_size):
 
         mean_crossings = get_mean_crossings(i, window)
         crossing_interval = get_max_mean_crossing_interval(i, window)
+        avg_lat = np.mean(df['lat'][i: i + sample_size - 1])
+        avg_long = np.mean(df['long'][i: i + sample_size - 1])
 
         sample_number = i
         features.append(
             [std_dev, std_ratio_next, std_ratio_prev, mean_crossings,
-                crossing_interval]
+                crossing_interval, avg_lat, avg_long]
         )
 
     features_df = pd.DataFrame(
@@ -72,6 +74,9 @@ def extract_features(amplitude, sample_size):
             "std_ratio_prev",
             "mean_crossings",
             "crossing_interval",
+            "avg_lat",
+            "avg_long",
         ],
     )
+
     return features_df
