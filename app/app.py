@@ -1,15 +1,10 @@
-from fastapi import FastAPI, Request 
+from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import logging
 import pandas as pd
-import numpy as np
 from app.modules.pipeline import pipeline
 from app.database import collection
-
-app = FastAPI()
-
-
 
 
 
@@ -64,7 +59,38 @@ async def postData(data:dict) -> dict:
 @app.post('/test', tags=['test'])
 async def testDb(data:dict) -> dict:
     print(data)
-    collection.insert_one(data)
+    # collection.insert_one(data)
     return {
         "message": "data recieved"
     }
+
+
+@app.websocket("/socket")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+
+    try:
+        while True:
+            data = await websocket.receive_json()
+
+            df = pd.DataFrame(
+                columns=['accx', 'accy', 'accz', 'long', 'lat', 'seconds'])
+
+            # inserting the data into the dataframe. The data is expected to be a dictionary with the keys being the column names and lists as values
+            for key in data.keys():
+                df[key] = data[key]
+
+            print(pipeline(df))
+
+            ## uncomment this to save the poi to the database
+            ## results = pipeline(df)
+            ## for res in results:
+            ##     if res.res != 'normal':
+            ##         collection.insert_one(res.poi)
+            
+
+            await websocket.send_json({"message": "data received"})
+
+    except WebSocketDisconnect as e:
+        print("WebSocket disconnected:", e)
+

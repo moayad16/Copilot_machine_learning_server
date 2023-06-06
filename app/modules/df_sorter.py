@@ -8,4 +8,4 @@
 
 
 def df_sorter(df):
-    return df[['crossing_interval', 'mean_crossings', 'std_dev', 'std_ratio_next', 'std_ratio_prev']]
+    return df[['crossing_interval', 'mean_crossings', 'std_dev', 'std_ratio_next', 'std_ratio_prev', 'avg_lat', 'avg_long']]
