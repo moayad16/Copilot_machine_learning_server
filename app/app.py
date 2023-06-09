@@ -38,24 +38,6 @@ async def root() -> dict:
     return {"message": "Hello from your first FastApi project"}
 
 
-@app.post('/data', tags=['data'])
-async def postData(data:dict) -> dict:
-    logging.debug("data endpoint called.")
-
-    # creating a dataframe that will hold about 1000 roows of data
-    df = pd.DataFrame(columns=['accx', 'accy', 'accz', 'long', 'lat', 'seconds'])
-
-    # inserting the data into the dataframe. The data is expected to be a dictionary with the keys being the column names and lists as values
-    for key in data.keys():
-        df[key] = data[key]
-
-    print(pipeline(df))
-
-    return {
-        "message": "Data recieved"
-    }
-
-
 
 @app.websocket("/socket")
 async def websocket_endpoint(websocket: WebSocket):
