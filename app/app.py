@@ -56,14 +56,6 @@ async def postData(data:dict) -> dict:
     }
 
 
-@app.post('/test', tags=['test'])
-async def testDb(data:dict) -> dict:
-    print(data)
-    # collection.insert_one(data)
-    return {
-        "message": "data recieved"
-    }
-
 
 @app.websocket("/socket")
 async def websocket_endpoint(websocket: WebSocket):
@@ -80,16 +72,17 @@ async def websocket_endpoint(websocket: WebSocket):
             for key in data.keys():
                 df[key] = data[key]
 
-            print(pipeline(df))
+            results = pipeline(df)
+            print(results)
 
-            ## uncomment this to save the poi to the database
-            ## results = pipeline(df)
-            ## for res in results:
-            ##     if res.res != 'normal':
-            ##         collection.insert_one(res.poi)
+            # # uncomment this to save the poi to the database
+            # results = pipeline(df)
+            # for res in results:
+            #     if res.res != 'normal':
+            #         collection.insert_one(res.poi)
             
 
-            await websocket.send_json({"message": "data received"})
+            await websocket.send_json({"results": results})
 
     except WebSocketDisconnect as e:
         print("WebSocket disconnected:", e)
