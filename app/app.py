@@ -69,3 +69,8 @@ async def websocket_endpoint(websocket: WebSocket):
     except WebSocketDisconnect as e:
         print("WebSocket disconnected:", e)
 
+
+## Health check endpoint
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
