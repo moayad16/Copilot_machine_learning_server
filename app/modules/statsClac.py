@@ -82,19 +82,19 @@ def extract_features(df, sample_size):
     ## Normalizing the features
 
     mean_dict = {
-        "crossing_interval": 12.582456,
-        "mean_crossings": 18.140351,
-        "std_dev": 0.399846,
-        "std_ratio_next": 1.000405,
-        "std_ratio_prev": 1.147741
+        "crossing_interval": 7.724771,
+        "mean_crossings": 41.165138,
+        "std_dev":  0.951816,
+        "std_ratio_next": 1.000904,
+        "std_ratio_prev":  1.119778
     }
 
     std_dict = {
-        "crossing_interval": 4.725311,
-        "mean_crossings": 6.938966,
-        "std_dev": 0.249339,
-        "std_ratio_next": 0.009771,
-        "std_ratio_prev": 0.755351
+        "crossing_interval": 3.024848,
+        "mean_crossings": 18.945721,
+        "std_dev":  0.594779,
+        "std_ratio_next": 0.014137,
+        "std_ratio_prev": 0.625300
     }
 
     # subtract mean and divide by std for each feature

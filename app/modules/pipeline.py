@@ -12,8 +12,7 @@ svm_model = joblib.load('app/modules/svmModel/svm_model.joblib')
 
 def pipeline(df):
 
-    final_df = df.pipe(low_pass_filter, cutoff_freq=5, 
-                       sampling_rate=50, filter_order=4).pipe(AmplitudeCalc).pipe(extract_features, sample_size=50*2).pipe(df_sorter)
+    final_df = df.pipe(AmplitudeCalc).pipe(extract_features, sample_size=100).pipe(df_sorter)
     
     results = []
     for i in range(len(final_df)):
