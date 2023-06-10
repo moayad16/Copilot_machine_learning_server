@@ -80,14 +80,28 @@ def extract_features(df, sample_size):
     )
 
     ## Normalizing the features
-    mean = features_df[['crossing_interval', 'mean_crossings',
-               'std_dev', 'std_ratio_next', 'std_ratio_prev']].mean()
+
+    mean_dict = {
+        "crossing_interval": 12.582456,
+        "mean_crossings": 18.140351,
+        "std_dev": 0.399846,
+        "std_ratio_next": 1.000405,
+        "std_ratio_prev": 1.147741
+    }
+
+    std_dict = {
+        "crossing_interval": 4.725311,
+        "mean_crossings": 6.938966,
+        "std_dev": 0.249339,
+        "std_ratio_next": 0.009771,
+        "std_ratio_prev": 0.755351
+    }
+
+    # subtract mean and divide by std for each feature
+
+    for feature in features_df.columns[0:5]:
+        print(feature)
+        features_df[feature] = (features_df[feature] - mean_dict[feature]) / std_dict[feature]
 
 
-    std = features_df[['crossing_interval', 'mean_crossings',
-            'std_dev', 'std_ratio_next', 'std_ratio_prev']].std()
-    
-    final_df = (features_df[['crossing_interval', 'mean_crossings',
-                   'std_dev', 'std_ratio_next', 'std_ratio_prev']] - mean) / std
-
-    return final_df
+    return features_df
