@@ -5,6 +5,8 @@ client = MongoClient(mongodb_uri)
 
 db = client.Copilot
 
-collection = db.poi
+poi = db.poi
+data = db.data
+users = db.users
 
 
