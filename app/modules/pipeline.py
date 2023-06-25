@@ -5,7 +5,7 @@ from app.modules.statsClac import extract_features
 from app.modules.df_sorter import df_sorter
 import joblib
 
-svm_model = joblib.load('app/modules/svmModel/rfc_grid.joblib')
+svm_model = joblib.load('app/modules/svmModel/rfc_grid1.joblib')
 # cutoff_freq = 5  # Hz
 # sampling_rate = 50  # Hz
 # filter_order = 4
