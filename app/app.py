@@ -46,14 +46,16 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_json()
-
-            df = pd.DataFrame(
-                columns=['accx', 'accy', 'accz', 'long', 'lat', 'seconds'])
+            print(data)
+            # df = pd.DataFrame(
+            #     columns=['accx', 'accy', 'accz', 'long', 'lat', 'seconds'])
 
             # inserting the data into the dataframe. The data is expected to be a dictionary with the keys being the column names and lists as values
-            for key in data.keys():
-                df[key] = data[key]
+            # for key in data.keys():
+            #     df[key] = data[key]
+            df = pd.DataFrame(data, columns=['accx', 'accy', 'accz',  'lat', 'long',  'seconds'])
 
+            # run the pipeline on the dataframe
             results = pipeline(df)
             print(results)
 
@@ -74,3 +76,4 @@ async def websocket_endpoint(websocket: WebSocket):
 @app.get("/health")
 async def health_check():
     return {"status": "ok"}
+
