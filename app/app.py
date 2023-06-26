@@ -4,7 +4,7 @@ from pydantic import BaseModel
 import logging
 import pandas as pd
 from app.modules.pipeline import pipeline
-from app.database import collection
+from app.database import poi
 
 
 
@@ -57,14 +57,20 @@ async def websocket_endpoint(websocket: WebSocket):
 
             # run the pipeline on the dataframe
             results = pipeline(df)
-            print(results)
 
+            for res in results:
+                if(res['res'] == 0):
+                    res['res'] = 'normal'
+                elif(res['res'] == 1):
+                    res['res'] = "anomaly"
+            print("results", results)
             # # uncomment this to save the poi to the database
             # results = pipeline(df)
             # for res in results:
             #     if res.res != 'normal':
-            #         collection.insert_one(res.poi)
-            
+            #         poi.insert_one(res)
+
+
 
             await websocket.send_json({"results": results})
 

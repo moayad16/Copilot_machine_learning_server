@@ -112,7 +112,6 @@ def extract_features(df, sample_size):
     # subtract mean and divide by std for each feature
 
     for feature in features_df.columns[0:5]:
-        print(feature)
         features_df[feature] = (features_df[feature] - mean_dict[feature]) / std_dict[feature]
 
 
