@@ -23,16 +23,16 @@ def pipeline(df):
         prediction =  svm_model.predict(row)[0]
 
         # Save the data to the data collection database.
-        data.insert_one({
-            "crossing_interval": final_df.iloc[i]['crossing_interval'],
-            "mean_crossings": final_df.iloc[i]['mean_crossings'],
-            "std_dev": final_df.iloc[i]['std_dev'],
-            "std_ratio_next": final_df.iloc[i]['std_ratio_next'],
-            "std_ratio_prev": final_df.iloc[i]['std_ratio_prev'],
-            "avg_lat": final_df.iloc[i]['avg_lat'],
-            "avg_long": final_df.iloc[i]['avg_long'],
-            "label": prediction
-        })
+        # data.insert_one({
+        #     "crossing_interval": final_df.iloc[i]['crossing_interval'],
+        #     "mean_crossings": final_df.iloc[i]['mean_crossings'],
+        #     "std_dev": final_df.iloc[i]['std_dev'],
+        #     "std_ratio_next": final_df.iloc[i]['std_ratio_next'],
+        #     "std_ratio_prev": final_df.iloc[i]['std_ratio_prev'],
+        #     "avg_lat": final_df.iloc[i]['avg_lat'],
+        #     "avg_long": final_df.iloc[i]['avg_long'],
+        #     "label": prediction
+        # })
 
 
         results.append({

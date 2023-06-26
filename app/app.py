@@ -59,9 +59,9 @@ async def websocket_endpoint(websocket: WebSocket):
             results = pipeline(df)
 
             for res in results:
-                if(res['res'] == 0):
+                if(res['res'] == 1):
                     res['res'] = 'normal'
-                elif(res['res'] == 1):
+                elif(res['res'] == 0):
                     res['res'] = "anomaly"
             print("results", results)
             # # uncomment this to save the poi to the database
